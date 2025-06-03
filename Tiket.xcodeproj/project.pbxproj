@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		FBFBC3E02DEEEA14003DEC45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBFBC3CA2DEEEA11003DEC45 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBFBC3D12DEEEA11003DEC45;
+			remoteInfo = Tiket;
+		};
+		FBFBC3EA2DEEEA14003DEC45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBFBC3CA2DEEEA11003DEC45 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBFBC3D12DEEEA11003DEC45;
+			remoteInfo = Tiket;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FBFBC3D22DEEEA11003DEC45 /* Tiket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tiket.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBFBC3DF2DEEEA14003DEC45 /* TiketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBFBC3E92DEEEA14003DEC45 /* TiketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FBFBC3D42DEEEA11003DEC45 /* Tiket */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tiket;
+			sourceTree = "<group>";
+		};
+		FBFBC3E22DEEEA14003DEC45 /* TiketTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TiketTests;
+			sourceTree = "<group>";
+		};
+		FBFBC3EC2DEEEA14003DEC45 /* TiketUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TiketUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FBFBC3CF2DEEEA11003DEC45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3DC2DEEEA14003DEC45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3E62DEEEA14003DEC45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FBFBC3C92DEEEA11003DEC45 = {
+			isa = PBXGroup;
+			children = (
+				FBFBC3D42DEEEA11003DEC45 /* Tiket */,
+				FBFBC3E22DEEEA14003DEC45 /* TiketTests */,
+				FBFBC3EC2DEEEA14003DEC45 /* TiketUITests */,
+				FBFBC3D32DEEEA11003DEC45 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FBFBC3D32DEEEA11003DEC45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FBFBC3D22DEEEA11003DEC45 /* Tiket.app */,
+				FBFBC3DF2DEEEA14003DEC45 /* TiketTests.xctest */,
+				FBFBC3E92DEEEA14003DEC45 /* TiketUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FBFBC3D12DEEEA11003DEC45 /* Tiket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBFBC3F32DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "Tiket" */;
+			buildPhases = (
+				FBFBC3CE2DEEEA11003DEC45 /* Sources */,
+				FBFBC3CF2DEEEA11003DEC45 /* Frameworks */,
+				FBFBC3D02DEEEA11003DEC45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FBFBC3D42DEEEA11003DEC45 /* Tiket */,
+			);
+			name = Tiket;
+			packageProductDependencies = (
+			);
+			productName = Tiket;
+			productReference = FBFBC3D22DEEEA11003DEC45 /* Tiket.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FBFBC3DE2DEEEA14003DEC45 /* TiketTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBFBC3F62DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "TiketTests" */;
+			buildPhases = (
+				FBFBC3DB2DEEEA14003DEC45 /* Sources */,
+				FBFBC3DC2DEEEA14003DEC45 /* Frameworks */,
+				FBFBC3DD2DEEEA14003DEC45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBFBC3E12DEEEA14003DEC45 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FBFBC3E22DEEEA14003DEC45 /* TiketTests */,
+			);
+			name = TiketTests;
+			packageProductDependencies = (
+			);
+			productName = TiketTests;
+			productReference = FBFBC3DF2DEEEA14003DEC45 /* TiketTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FBFBC3E82DEEEA14003DEC45 /* TiketUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBFBC3F92DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "TiketUITests" */;
+			buildPhases = (
+				FBFBC3E52DEEEA14003DEC45 /* Sources */,
+				FBFBC3E62DEEEA14003DEC45 /* Frameworks */,
+				FBFBC3E72DEEEA14003DEC45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBFBC3EB2DEEEA14003DEC45 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FBFBC3EC2DEEEA14003DEC45 /* TiketUITests */,
+			);
+			name = TiketUITests;
+			packageProductDependencies = (
+			);
+			productName = TiketUITests;
+			productReference = FBFBC3E92DEEEA14003DEC45 /* TiketUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FBFBC3CA2DEEEA11003DEC45 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					FBFBC3D12DEEEA11003DEC45 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					FBFBC3DE2DEEEA14003DEC45 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FBFBC3D12DEEEA11003DEC45;
+					};
+					FBFBC3E82DEEEA14003DEC45 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FBFBC3D12DEEEA11003DEC45;
+					};
+				};
+			};
+			buildConfigurationList = FBFBC3CD2DEEEA11003DEC45 /* Build configuration list for PBXProject "Tiket" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FBFBC3C92DEEEA11003DEC45;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FBFBC3D32DEEEA11003DEC45 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FBFBC3D12DEEEA11003DEC45 /* Tiket */,
+				FBFBC3DE2DEEEA14003DEC45 /* TiketTests */,
+				FBFBC3E82DEEEA14003DEC45 /* TiketUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FBFBC3D02DEEEA11003DEC45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3DD2DEEEA14003DEC45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3E72DEEEA14003DEC45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FBFBC3CE2DEEEA11003DEC45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3DB2DEEEA14003DEC45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBFBC3E52DEEEA14003DEC45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FBFBC3E12DEEEA14003DEC45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBFBC3D12DEEEA11003DEC45 /* Tiket */;
+			targetProxy = FBFBC3E02DEEEA14003DEC45 /* PBXContainerItemProxy */;
+		};
+		FBFBC3EB2DEEEA14003DEC45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBFBC3D12DEEEA11003DEC45 /* Tiket */;
+			targetProxy = FBFBC3EA2DEEEA14003DEC45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FBFBC3F12DEEEA14003DEC45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FBFBC3F22DEEEA14003DEC45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FBFBC3F42DEEEA14003DEC45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.Tiket;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FBFBC3F52DEEEA14003DEC45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.Tiket;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FBFBC3F72DEEEA14003DEC45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.TiketTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tiket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tiket";
+			};
+			name = Debug;
+		};
+		FBFBC3F82DEEEA14003DEC45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.TiketTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tiket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tiket";
+			};
+			name = Release;
+		};
+		FBFBC3FA2DEEEA14003DEC45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.TiketUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tiket;
+			};
+			name = Debug;
+		};
+		FBFBC3FB2DEEEA14003DEC45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = lucent.TiketUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tiket;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FBFBC3CD2DEEEA11003DEC45 /* Build configuration list for PBXProject "Tiket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBFBC3F12DEEEA14003DEC45 /* Debug */,
+				FBFBC3F22DEEEA14003DEC45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBFBC3F32DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "Tiket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBFBC3F42DEEEA14003DEC45 /* Debug */,
+				FBFBC3F52DEEEA14003DEC45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBFBC3F62DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "TiketTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBFBC3F72DEEEA14003DEC45 /* Debug */,
+				FBFBC3F82DEEEA14003DEC45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBFBC3F92DEEEA14003DEC45 /* Build configuration list for PBXNativeTarget "TiketUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBFBC3FA2DEEEA14003DEC45 /* Debug */,
+				FBFBC3FB2DEEEA14003DEC45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FBFBC3CA2DEEEA11003DEC45 /* Project object */;
+}
