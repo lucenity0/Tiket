@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct TiketApp: App {
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView()
         }
     }
 }
+
+
