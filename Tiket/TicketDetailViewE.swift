@@ -6,27 +6,35 @@ struct TicketDetailViewE: View {
     let date: Date
     let time: String
     let seats: [String]
-    let venue = "City Hall" // example property similar to cinema
+    let venue = "City Hall"
     
     @State private var navigateToHome = false
+    @Environment(\.colorScheme) var colorScheme
+
+    var themeColor: Color {
+        Color(red: 0.32, green: 0.14, blue: 0.14)
+    }
 
     var body: some View {
         VStack(spacing: 24) {
             Text("Ticket Details")
                 .font(.title2)
                 .bold()
+                .foregroundColor(themeColor)
 
             VStack(spacing: 12) {
                 Circle()
-                    .fill(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .fill(themeColor)
                     .frame(width: 40, height: 40)
-                    .overlay(Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold)))
+                    .overlay(
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .bold))
+                    )
 
                 Text("Tickets Booked Successfully!")
                     .font(.headline)
-                    .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .foregroundColor(themeColor)
             }
 
             VStack(alignment: .leading, spacing: 16) {
@@ -39,12 +47,13 @@ struct TicketDetailViewE: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(event.title)
                             .font(.headline)
+                            .foregroundColor(.black)
 
                         Text(event.genre)
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.gray)
 
-                        Text("Duration: 3 Hr")  // Change as appropriate
+                        Text("Duration: 3 Hr")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
@@ -56,32 +65,29 @@ struct TicketDetailViewE: View {
                     HStack {
                         Text("VENUE")
                         Spacer()
-                        Text(venue)
-                            .bold()
+                        Text(venue).bold()
                     }
 
                     HStack {
                         Text("DATE")
                         Spacer()
-                        Text(formattedDate(date))
-                            .bold()
+                        Text(formattedDate(date)).bold()
                     }
 
                     HStack {
                         Text("TIME")
                         Spacer()
-                        Text(time)
-                            .bold()
+                        Text(time).bold()
                     }
 
                     HStack {
                         Text("SEATS")
                         Spacer()
-                        Text(seats.joined(separator: ", "))
-                            .bold()
+                        Text(seats.joined(separator: ", ")).bold()
                     }
                 }
                 .font(.subheadline)
+                .foregroundColor(.black)
 
                 Divider()
 
@@ -102,8 +108,8 @@ struct TicketDetailViewE: View {
             Spacer()
 
             NavigationLink(destination: HomePageView()
-                            .navigationBarBackButtonHidden(true),
-                           isActive: $navigateToHome) {
+                .navigationBarBackButtonHidden(true),
+                isActive: $navigateToHome) {
                 EmptyView()
             }
 
@@ -113,7 +119,7 @@ struct TicketDetailViewE: View {
                 Text("Confirm")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .background(themeColor)
                     .foregroundColor(.white)
                     .cornerRadius(12)
             }
@@ -130,7 +136,7 @@ struct TicketDetailViewE: View {
                     navigateToHome = true
                 }) {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                        .foregroundColor(themeColor)
                 }
             }
         }

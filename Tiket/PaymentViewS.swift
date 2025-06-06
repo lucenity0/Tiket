@@ -22,6 +22,11 @@ struct PaymentViewS: View {
         isPrivateTheatre ? privateTheatrePrice : Double(seats.count) * ticketPrice
     }
 
+    // Theme colors
+    let themeColor = Color(red: 0.32, green: 0.14, blue: 0.14)
+    let backgroundColor = Color(red: 0.94, green: 0.89, blue: 0.85)
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
@@ -39,7 +44,7 @@ struct PaymentViewS: View {
                             .cornerRadius(12)
                     }
                     .padding()
-                    .background(Color.white)
+                    .background(backgroundColor)
                     .cornerRadius(16)
                     .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     .padding(.horizontal)
@@ -49,15 +54,21 @@ struct PaymentViewS: View {
                         Text("Confirm Your Booking")
                             .font(.title2)
                             .bold()
+                            .foregroundColor(themeColor)
 
                         VStack(alignment: .leading, spacing: 12) {
                             Label(sport.title, systemImage: "sportscourt")
+                                .foregroundColor(.black)
                             Label(formattedDate(date), systemImage: "calendar")
+                                .foregroundColor(.black)
                             Label(time, systemImage: "clock")
+                                .foregroundColor(.black)
                             if isPrivateTheatre {
                                 Label("Private Theatre", systemImage: "house.fill")
+                                    .foregroundColor(.black)
                             } else {
                                 Label(seats.joined(separator: ", "), systemImage: "ticket")
+                                    .foregroundColor(.black)
                             }
                         }
 
@@ -66,6 +77,7 @@ struct PaymentViewS: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Price Breakdown")
                                 .font(.headline)
+                                .foregroundColor(themeColor)
 
                             if isPrivateTheatre {
                                 HStack {
@@ -73,12 +85,14 @@ struct PaymentViewS: View {
                                     Spacer()
                                     Text("₹\(Int(privateTheatrePrice))")
                                 }
+                                .foregroundColor(.black)
                             } else {
                                 HStack {
                                     Text("\(seats.count) Ticket(s) x ₹\(Int(ticketPrice))")
                                     Spacer()
                                     Text("₹\(Int(totalPrice))")
                                 }
+                                .foregroundColor(.black)
                             }
                         }
 
@@ -87,10 +101,11 @@ struct PaymentViewS: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Payment Method")
                                 .font(.headline)
+                                .foregroundColor(themeColor)
 
                             Picker("Payment Method", selection: $selectedPaymentMethod) {
                                 ForEach(paymentMethods, id: \.self) { method in
-                                    Text(method)
+                                    Text(method).foregroundColor(.black)
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
@@ -104,13 +119,13 @@ struct PaymentViewS: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color(red: 0.32, green: 0.14, blue: 0.14))
+                                .background(themeColor)
                                 .cornerRadius(12)
                         }
                         .padding(.top)
                     }
                     .padding()
-                    .background(Color.white)
+                    .background(backgroundColor)
                     .cornerRadius(16)
                     .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     .padding(.horizontal)
@@ -118,13 +133,15 @@ struct PaymentViewS: View {
                 .padding(.top, 24)
                 .padding(.bottom, 40)
             }
-            .background(Color(red: 0.94, green: 0.89, blue: 0.85).ignoresSafeArea())
+            .background(backgroundColor.ignoresSafeArea())
+
             .alert("Booking Confirmed 🎉", isPresented: $showConfirmation) {
                 Button("OK") {
                     navigateToTicket = true
                 }
             } message: {
                 Text("Your booking for \(sport.title) on \(formattedDate(date)) at \(time) is confirmed.\nEnjoy the game!")
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
             }
 
             NavigationLink(

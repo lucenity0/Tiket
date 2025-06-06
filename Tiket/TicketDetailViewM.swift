@@ -10,28 +10,32 @@ struct TicketDetailViewM: View {
     
     @State private var navigateToHome = false
 
+    var themeColor: Color {
+        Color(red: 0.32, green: 0.14, blue: 0.14)
+    }
+
     var body: some View {
         VStack(spacing: 24) {
-            // Navigation Title
             Text("Ticket Details")
                 .font(.title2)
                 .bold()
+                .foregroundColor(themeColor)
 
-            // Checkmark and Message
             VStack(spacing: 12) {
                 Circle()
-                    .fill(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .fill(themeColor)
                     .frame(width: 40, height: 40)
-                    .overlay(Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold)))
+                    .overlay(
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .bold))
+                    )
 
                 Text("Tickets Booked Successfully!")
                     .font(.headline)
-                    .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .foregroundColor(themeColor)
             }
 
-            // Ticket Card
             VStack(alignment: .leading, spacing: 16) {
                 HStack(alignment: .top, spacing: 16) {
                     Image(movie.imageName)
@@ -42,30 +46,34 @@ struct TicketDetailViewM: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(movie.title)
                             .font(.headline)
+                            .foregroundColor(.black)
 
-                        HStack {
+                        HStack(spacing: 6) {
                             Label("16+", systemImage: "shield.fill")
                                 .font(.caption2)
                                 .padding(4)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
+                                .foregroundColor(.black)
 
                             Text("ENG")
                                 .font(.caption2)
                                 .padding(4)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
+                                .foregroundColor(.black)
 
                             Text("SUB/ENGLISH")
                                 .font(.caption2)
                                 .padding(4)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
+                                .foregroundColor(.black)
                         }
 
                         Text(movie.genre)
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.gray)
 
                         Text(movie.duration ?? "N/A")
                             .font(.caption)
@@ -79,32 +87,29 @@ struct TicketDetailViewM: View {
                     HStack {
                         Text("CINEMA")
                         Spacer()
-                        Text(cinema)
-                            .bold()
+                        Text(cinema).bold()
                     }
 
                     HStack {
                         Text("DATE")
                         Spacer()
-                        Text(formattedDate(date))
-                            .bold()
+                        Text(formattedDate(date)).bold()
                     }
 
                     HStack {
                         Text("TIME")
                         Spacer()
-                        Text(time)
-                            .bold()
+                        Text(time).bold()
                     }
 
                     HStack {
                         Text("SEATS")
                         Spacer()
-                        Text(seats.joined(separator: ", "))
-                            .bold()
+                        Text(seats.joined(separator: ", ")).bold()
                     }
                 }
                 .font(.subheadline)
+                .foregroundColor(.black)
 
                 Divider()
 
@@ -124,7 +129,6 @@ struct TicketDetailViewM: View {
 
             Spacer()
 
-            // Confirm button with NavigationLink to HomePageView
             NavigationLink(destination: HomePageView()
                             .navigationBarBackButtonHidden(true),
                            isActive: $navigateToHome) {
@@ -137,7 +141,7 @@ struct TicketDetailViewM: View {
                 Text("Confirm")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .background(themeColor)
                     .foregroundColor(.white)
                     .cornerRadius(12)
             }
@@ -145,16 +149,16 @@ struct TicketDetailViewM: View {
         }
         .padding(.top)
         .background(Color(red: 0.94, green: 0.89, blue: 0.85).ignoresSafeArea())
-        .navigationTitle("")                       // Hide navigation title text
-        .navigationBarTitleDisplayMode(.inline)   // Use inline mode for smoothness
-        .navigationBarBackButtonHidden(true)      // Hide default back button
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    navigateToHome = true       // Custom back button triggers same nav as confirm
+                    navigateToHome = true
                 }) {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                        .foregroundColor(themeColor)
                 }
             }
         }
@@ -166,7 +170,6 @@ struct TicketDetailViewM: View {
         return formatter.string(from: date)
     }
 }
-
 struct BarcodeView: View {
     let dataString: String
     let context = CIContext()

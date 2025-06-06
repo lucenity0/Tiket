@@ -6,27 +6,34 @@ struct TicketDetailViewS: View {
     let date: Date
     let time: String
     let seats: [String]
-    let stadium = "National Stadium"  // example venue
+    let stadium = "National Stadium"
 
     @State private var navigateToHome = false
+
+    var themeColor: Color {
+        Color(red: 0.32, green: 0.14, blue: 0.14)
+    }
 
     var body: some View {
         VStack(spacing: 24) {
             Text("Ticket Details")
                 .font(.title2)
                 .bold()
+                .foregroundColor(themeColor)
 
             VStack(spacing: 12) {
                 Circle()
-                    .fill(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .fill(themeColor)
                     .frame(width: 40, height: 40)
-                    .overlay(Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold)))
+                    .overlay(
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .bold))
+                    )
 
                 Text("Tickets Booked Successfully!")
                     .font(.headline)
-                    .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .foregroundColor(themeColor)
             }
 
             VStack(alignment: .leading, spacing: 16) {
@@ -39,12 +46,13 @@ struct TicketDetailViewS: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(sport.title)
                             .font(.headline)
+                            .foregroundColor(.black)
 
                         Text(sport.genre)
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.gray)
 
-                        Text("Match Duration: 2 Hr")  // change if needed
+                        Text("Match Duration: 2 Hr")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
@@ -56,32 +64,29 @@ struct TicketDetailViewS: View {
                     HStack {
                         Text("STADIUM")
                         Spacer()
-                        Text(stadium)
-                            .bold()
+                        Text(stadium).bold()
                     }
 
                     HStack {
                         Text("DATE")
                         Spacer()
-                        Text(formattedDate(date))
-                            .bold()
+                        Text(formattedDate(date)).bold()
                     }
 
                     HStack {
                         Text("TIME")
                         Spacer()
-                        Text(time)
-                            .bold()
+                        Text(time).bold()
                     }
 
                     HStack {
                         Text("SEATS")
                         Spacer()
-                        Text(seats.joined(separator: ", "))
-                            .bold()
+                        Text(seats.joined(separator: ", ")).bold()
                     }
                 }
                 .font(.subheadline)
+                .foregroundColor(.black)
 
                 Divider()
 
@@ -113,7 +118,7 @@ struct TicketDetailViewS: View {
                 Text("Confirm")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.32, green: 0.14, blue: 0.14))
+                    .background(themeColor)
                     .foregroundColor(.white)
                     .cornerRadius(12)
             }
@@ -130,7 +135,7 @@ struct TicketDetailViewS: View {
                     navigateToHome = true
                 }) {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
+                        .foregroundColor(themeColor)
                 }
             }
         }

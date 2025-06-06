@@ -2,11 +2,11 @@ import SwiftUI
 
 struct MovieDetailView: View {
     let movie: MovieItem
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-
                 // MARK: - Header Banner
                 ZStack(alignment: .topLeading) {
                     Image(movie.imageName)
@@ -15,11 +15,17 @@ struct MovieDetailView: View {
                         .frame(height: 320)
                         .clipped()
                         .overlay(
-                            LinearGradient(gradient: Gradient(colors: [.black.opacity(0.5), .clear]), startPoint: .top, endPoint: .center)
+                            LinearGradient(
+                                gradient: Gradient(colors: [.black.opacity(0.5), .clear]),
+                                startPoint: .top,
+                                endPoint: .center
+                            )
                         )
 
                     HStack {
-                        Button(action: {}) {
+                        Button {
+                            dismiss()
+                        } label: {
                             Image(systemName: "chevron.left")
                                 .foregroundColor(.white)
                                 .padding()
@@ -33,7 +39,9 @@ struct MovieDetailView: View {
                     VStack {
                         Spacer()
                         HStack(spacing: 20) {
-                            Button(action: {}) {
+                            Button {
+                                // Play Trailer action
+                            } label: {
                                 HStack {
                                     Image(systemName: "play.fill")
                                     Text("Play Trailer")
@@ -47,11 +55,13 @@ struct MovieDetailView: View {
                             }
 
                             ForEach(["arrow.down.to.line", "airplayvideo", "square.and.arrow.up"], id: \.self) { icon in
-                                Button(action: {}) {
+                                Button {
+                                    // Action for each icon
+                                } label: {
                                     Image(systemName: icon)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color.accentColor)
                                         .padding(10)
-                                        .background(Circle().fill(Color.white))
+                                        .background(Circle().fill(Color(UIColor.secondarySystemBackground)))
                                         .shadow(radius: 2)
                                 }
                             }
@@ -64,12 +74,12 @@ struct MovieDetailView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(movie.title)
                         .font(.title.bold())
+                        .foregroundColor(.primary)
 
                     Text(movie.duration ?? "1h 50min")
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondary)
 
-                    // Genres
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             ForEach(movie.genre.components(separatedBy: ", "), id: \.self) { genre in
@@ -77,7 +87,7 @@ struct MovieDetailView: View {
                                     .font(.caption)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(Color.white)
+                                    .background(Color(UIColor.systemBackground))
                                     .cornerRadius(20)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
@@ -92,9 +102,10 @@ struct MovieDetailView: View {
                             .foregroundColor(.yellow)
                         Text("\(movie.rating)/5")
                             .font(.subheadline)
+                            .foregroundColor(.primary)
                         Text("193k Votes")
                             .font(.subheadline)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .padding(.horizontal)
@@ -105,10 +116,11 @@ struct MovieDetailView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("About the movie")
                         .font(.headline)
+                        .foregroundColor(.primary)
 
                     Text(movie.description ?? "No description available.")
                         .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(.horizontal)
@@ -118,6 +130,7 @@ struct MovieDetailView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Cast")
                             .font(.headline)
+                            .foregroundColor(.primary)
 
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
@@ -133,10 +146,11 @@ struct MovieDetailView: View {
                                         Text(member.name)
                                             .font(.caption)
                                             .lineLimit(1)
+                                            .foregroundColor(.primary)
 
                                         Text(member.role)
                                             .font(.caption2)
-                                            .foregroundColor(.gray)
+                                            .foregroundColor(.secondary)
                                     }
                                     .frame(width: 80)
                                 }
@@ -153,10 +167,11 @@ struct MovieDetailView: View {
                         HStack {
                             Text("Reviews")
                                 .font(.headline)
+                                .foregroundColor(.primary)
                             Spacer()
                             Text("173k reviews")
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                         }
 
                         VStack(alignment: .leading, spacing: 12) {
@@ -173,22 +188,24 @@ struct MovieDetailView: View {
 
                             Text("“\(review.text)”")
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
 
                             HStack {
                                 Text("By \(review.author)")
                                     .bold()
+                                    .foregroundColor(.primary)
                                 Spacer()
                                 HStack(spacing: 5) {
                                     Image(systemName: "star.fill")
                                         .foregroundColor(.yellow)
                                     Text(review.score)
                                         .font(.subheadline)
+                                        .foregroundColor(.primary)
                                 }
                             }
                         }
                         .padding()
-                        .background(Color.white)
+                        .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(15)
                         .shadow(color: .gray.opacity(0.1), radius: 5)
                     }
@@ -199,7 +216,8 @@ struct MovieDetailView: View {
             }
             .padding(.top)
         }
-        .background(Color(red: 245/255, green: 234/255, blue: 226/255).edgesIgnoringSafeArea(.top))
+        .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.top))
+        .navigationBarHidden(true)
 
         // MARK: - Booking Button
         .overlay(
