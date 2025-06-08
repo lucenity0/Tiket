@@ -67,13 +67,13 @@ struct BookingViewM: View {
                         Text("Select Seats")
                             .font(.headline)
                             .foregroundColor(themeColor)
-                        
+
                         ForEach(seatRows, id: \.self) { row in
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Row \(row)")
                                     .font(.subheadline)
                                     .foregroundColor(themeColor)
-                                
+
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 12) {
                                         ForEach(seatNumbers, id: \.self) { number in

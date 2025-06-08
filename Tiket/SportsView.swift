@@ -48,19 +48,21 @@ struct SportsView: View {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 24) {
                             // Search Bar
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundStyle(.black)
-                                Text("Search here")
-                                    .foregroundColor(.gray)
-                                Spacer()
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundStyle(.black)
+                            NavigationLink(destination: SearchView()) {
+                                HStack {
+                                    Image(systemName:"magnifyingglass")
+                                        .foregroundColor(.black)
+                                    Text("Search here")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Image(systemName: "slider.horizontal.3")
+                                        .foregroundColor(.black)
+                                }
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .padding(.horizontal)
                             }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .padding(.horizontal)
 
                             CarouselSection(items: carouselItems, width: width)
 

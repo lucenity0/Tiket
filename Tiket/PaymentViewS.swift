@@ -1,4 +1,6 @@
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct PaymentViewS: View {
     let sport: SportItem
@@ -11,7 +13,7 @@ struct PaymentViewS: View {
     @State private var navigateToTicket = false
 
     let paymentMethods = ["UPI", "Credit Card", "Debit Card", "Net Banking"]
-    let ticketPrice = 120.0
+    let ticketPrice = 150.0
     let privateTheatrePrice = 40000.0
 
     var isPrivateTheatre: Bool {
@@ -22,10 +24,11 @@ struct PaymentViewS: View {
         isPrivateTheatre ? privateTheatrePrice : Double(seats.count) * ticketPrice
     }
 
-    // Theme colors
+    @Environment(\.colorScheme) var colorScheme
+    let db = Firestore.firestore()
+
     let themeColor = Color(red: 0.32, green: 0.14, blue: 0.14)
     let backgroundColor = Color(red: 0.94, green: 0.89, blue: 0.85)
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         GeometryReader { geo in
@@ -33,8 +36,6 @@ struct PaymentViewS: View {
 
             ScrollView {
                 VStack(spacing: 24) {
-
-                    // 🏟️ Event Image
                     VStack {
                         Image(sport.imageName)
                             .resizable()
@@ -49,7 +50,6 @@ struct PaymentViewS: View {
                     .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     .padding(.horizontal)
 
-                    // 📋 Booking Details
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Confirm Your Booking")
                             .font(.title2)
@@ -58,19 +58,14 @@ struct PaymentViewS: View {
 
                         VStack(alignment: .leading, spacing: 12) {
                             Label(sport.title, systemImage: "sportscourt")
-                                .foregroundColor(.black)
                             Label(formattedDate(date), systemImage: "calendar")
-                                .foregroundColor(.black)
                             Label(time, systemImage: "clock")
-                                .foregroundColor(.black)
                             if isPrivateTheatre {
                                 Label("Private Theatre", systemImage: "house.fill")
-                                    .foregroundColor(.black)
                             } else {
                                 Label(seats.joined(separator: ", "), systemImage: "ticket")
-                                    .foregroundColor(.black)
                             }
-                        }
+                        }.foregroundColor(.black)
 
                         Divider()
 
@@ -85,16 +80,14 @@ struct PaymentViewS: View {
                                     Spacer()
                                     Text("₹\(Int(privateTheatrePrice))")
                                 }
-                                .foregroundColor(.black)
                             } else {
                                 HStack {
                                     Text("\(seats.count) Ticket(s) x ₹\(Int(ticketPrice))")
                                     Spacer()
                                     Text("₹\(Int(totalPrice))")
                                 }
-                                .foregroundColor(.black)
                             }
-                        }
+                        }.foregroundColor(.black)
 
                         Divider()
 
@@ -104,14 +97,26 @@ struct PaymentViewS: View {
                                 .foregroundColor(themeColor)
 
                             Picker("Payment Method", selection: $selectedPaymentMethod) {
-                                ForEach(paymentMethods, id: \.self) { method in
-                                    Text(method).foregroundColor(.black)
+                                ForEach(paymentMethods, id: \.self) {
+                                    Text($0)
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
                         }
 
                         Button(action: {
+                            if let user = Auth.auth().currentUser {
+                                let booking: [String: Any] = [
+                                    "userId": user.uid,
+                                    "title": sport.title,
+                                    "date": Timestamp(date: date),
+                                    "time": time,
+                                    "seats": seats,
+                                    "type": "sport",
+                                    "timestamp": FieldValue.serverTimestamp()
+                                ]
+                                db.collection("bookings").addDocument(data: booking)
+                            }
                             showConfirmation = true
                         }) {
                             Text("Pay ₹\(Int(totalPrice)) Now")
@@ -134,14 +139,12 @@ struct PaymentViewS: View {
                 .padding(.bottom, 40)
             }
             .background(backgroundColor.ignoresSafeArea())
-
             .alert("Booking Confirmed 🎉", isPresented: $showConfirmation) {
                 Button("OK") {
                     navigateToTicket = true
                 }
             } message: {
-                Text("Your booking for \(sport.title) on \(formattedDate(date)) at \(time) is confirmed.\nEnjoy the game!")
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                Text("Your booking for \(sport.title) on \(formattedDate(date)) at \(time) is confirmed.")
             }
 
             NavigationLink(

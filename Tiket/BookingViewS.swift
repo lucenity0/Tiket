@@ -21,7 +21,6 @@ struct BookingViewS: View {
 
             ScrollView {
                 VStack(spacing: 24) {
-                    // Date Picker
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Select Date")
                             .font(.headline)
@@ -37,7 +36,6 @@ struct BookingViewS: View {
                     .frame(maxWidth: maxWidth)
                     .padding(.horizontal)
 
-                    // Time Selection
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Select Time")
                             .font(.headline)
@@ -62,18 +60,17 @@ struct BookingViewS: View {
                     .frame(maxWidth: maxWidth, alignment: .leading)
                     .padding(.horizontal)
 
-                    // Seat Selection
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Select Seats")
                             .font(.headline)
                             .foregroundColor(themeColor)
-                        
+
                         ForEach(seatRows, id: \.self) { row in
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Row \(row)")
                                     .font(.subheadline)
                                     .foregroundColor(themeColor)
-                                
+
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 12) {
                                         ForEach(seatNumbers, id: \.self) { number in
@@ -102,7 +99,6 @@ struct BookingViewS: View {
                     .frame(maxWidth: maxWidth, alignment: .leading)
                     .padding(.horizontal)
 
-                    // Proceed to Payment
                     NavigationLink(destination: PaymentViewS(sport: sport, date: selectedDate, time: selectedTime, seats: selectedSeats)) {
                         Text("Proceed to Payment")
                             .font(.headline)
@@ -115,7 +111,6 @@ struct BookingViewS: View {
                     .frame(maxWidth: maxWidth)
                     .padding(.horizontal)
 
-                    // Book Private Theatre
                     NavigationLink(destination: PaymentViewS(sport: sport, date: selectedDate, time: selectedTime, seats: [])) {
                         Text("Book Private Theatre")
                             .font(.headline)
@@ -136,16 +131,5 @@ struct BookingViewS: View {
             .background(backgroundColor.ignoresSafeArea())
         }
         .navigationTitle(Text("Booking").foregroundStyle(.black))
-    }
-}
-
-#Preview {
-    NavigationStack {
-        BookingViewS(sport: SportItem(
-            imageName: "",
-            title: "India vs Pakistan",
-            genre: "Cricket, Sports",
-            rating: "5.0"
-        ))
     }
 }

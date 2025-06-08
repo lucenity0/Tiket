@@ -119,19 +119,21 @@ struct HomePageView: View {
 
                         // Scrollable Sections
                         ScrollView(.vertical, showsIndicators: false) {
-                            HStack {
-                                Image(systemName:"magnifyingglass")
-                                    .foregroundColor(.black)
-                                Text("Search here")
-                                    .foregroundColor(.gray)
-                                Spacer()
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundColor(.black)
+                            NavigationLink(destination: SearchView()) {
+                                HStack {
+                                    Image(systemName:"magnifyingglass")
+                                        .foregroundColor(.black)
+                                    Text("Search here")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Image(systemName: "slider.horizontal.3")
+                                        .foregroundColor(.black)
+                                }
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .padding(.horizontal, screenWidth * 0.05)
                             }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .padding(.horizontal, screenWidth * 0.05)
 
                             VStack(spacing: screenHeight * 0.03) {
                                 SectionScroll(title: "Movies : Now Showing", items: movieItems, destination: MoviesView())

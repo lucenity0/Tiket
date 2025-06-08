@@ -5,7 +5,18 @@ import FirebaseStorage
 import PhotosUI
 import MessageUI
 
+struct Booking: Identifiable {
+    var id: String
+    var title: String
+    var date: Date
+    var time: String
+    var seats: [String]
+    var type: String
+}
+
 struct UserView: View {
+    @State private var bookings: [Booking] = []
+
     @State private var userName = ""
     @State private var userEmail = ""
     @State private var profileImageURL: URL?
@@ -15,6 +26,10 @@ struct UserView: View {
     @State private var errorMessage = ""
     @State private var showHelpSheet = false
     @State private var showLogoutConfirmation = false
+
+    @State private var selectedBooking: Booking?
+    @State private var navigateToTicket = false
+    @State private var showBookings = false
 
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -55,7 +70,6 @@ struct UserView: View {
                         .foregroundColor(.secondary)
                         .font(.subheadline)
 
-                    // Show error if upload fails
                     if showError {
                         Text(errorMessage)
                             .font(.footnote)
@@ -66,9 +80,85 @@ struct UserView: View {
 
                 Divider()
 
+                // MARK: - Show My Tickets
+                Button(action: {
+                    withAnimation {
+                        showBookings.toggle()
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "ticket.fill")
+                            .foregroundColor(.white)
+                        Text(showBookings ? "Hide My Tickets" : "Show My Tickets")
+                            .foregroundColor(.white)
+                            .fontWeight(.medium)
+                        Spacer()
+                        Image(systemName: showBookings ? "chevron.up" : "chevron.down")
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .background(Color.accentColor)
+                    .cornerRadius(12)
+                }
+
+                if showBookings {
+                    if bookings.isEmpty {
+                        Text("No tickets found.")
+                            .foregroundColor(.secondary)
+                            .padding(.top, 8)
+                    } else {
+                        VStack(spacing: 12) {
+                            ForEach(bookings) { booking in
+                                Button(action: {
+                                    selectedBooking = booking
+                                    navigateToTicket = true
+                                }) {
+                                    HStack {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(booking.title)
+                                                .font(.headline)
+                                                .foregroundColor(.primary)
+                                            Text("\(booking.date.formatted(date: .abbreviated, time: .shortened))")
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
+                                            Text("Seats: \(booking.seats.isEmpty ? "Private Theatre" : booking.seats.joined(separator: ", "))")
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding()
+                                    .background(Color(.secondarySystemBackground))
+                                    .cornerRadius(12)
+                                }
+                            }
+                        }
+                        .transition(.opacity.combined(with: .slide))
+                    }
+                }
+
+                Divider()
+
                 // MARK: - Account Items
                 VStack(spacing: 16) {
-                    accountRow(title: "Personal Information", systemIcon: "person", action: {})
+                    NavigationLink(destination: EditProfileView()) {
+                        HStack {
+                            Image(systemName: "person")
+                                .foregroundColor(.gray)
+                            Text("Personal Information")
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray.opacity(0.6))
+                        }
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(12)
+                        .shadow(color: Color.primary.opacity(0.05), radius: 2, x: 0, y: 1)
+                    }
+
                     accountRow(title: "Language", systemIcon: "globe", trailingText: "English (US)", action: {})
                     accountRow(title: "Setting", systemIcon: "gear", action: {})
                 }
@@ -104,6 +194,14 @@ struct UserView: View {
                         Button("Cancel", role: .cancel) {}
                     }
                 }
+
+                NavigationLink(
+                    destination: ticketDestination(for: selectedBooking),
+                    isActive: $navigateToTicket
+                ) {
+                    EmptyView()
+                }
+                .hidden()
             }
             .padding()
         }
@@ -117,7 +215,6 @@ struct UserView: View {
         }
     }
 
-    // MARK: - Account Row Component
     func accountRow(title: String, systemIcon: String, trailingText: String? = nil, action: @escaping () -> Void) -> some View {
         HStack {
             Image(systemName: systemIcon)
@@ -142,11 +239,15 @@ struct UserView: View {
         }
     }
 
-    // MARK: - Load User Data
     func loadUserData() {
-        guard let user = Auth.auth().currentUser else { return }
-        let docRef = db.collection("users").document(user.uid)
+        guard let user = Auth.auth().currentUser else {
+            print("❌ No logged-in user")
+            return
+        }
 
+        print("👤 Logged in user UID: \(user.uid)")
+
+        let docRef = db.collection("users").document(user.uid)
         docRef.getDocument { snapshot, error in
             if let data = snapshot?.data() {
                 self.userName = data["username"] as? String ?? "N/A"
@@ -157,6 +258,9 @@ struct UserView: View {
                     profileImageURL = url
                     loadImage(from: url)
                 }
+
+                // Fetch bookings using current UID
+                fetchBookings(for: user.uid)
             } else {
                 showError = true
                 errorMessage = "Failed to load user data"
@@ -164,7 +268,37 @@ struct UserView: View {
         }
     }
 
-    // MARK: - Upload Profile Image
+
+    func fetchBookings(for uid: String) {
+        db.collection("bookings")
+            .whereField("userId", isEqualTo: uid)
+            .order(by: "timestamp", descending: true) // important: descending = true
+
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("❌ Firestore error: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("⚠️ No booking documents found")
+                    return
+                }
+
+                self.bookings = documents.compactMap { doc in
+                    let data = doc.data()
+                    return Booking(
+                        id: doc.documentID,
+                        title: data["title"] as? String ?? "",
+                        date: (data["date"] as? Timestamp)?.dateValue() ?? Date(),
+                        time: data["time"] as? String ?? "",
+                        seats: data["seats"] as? [String] ?? [],
+                        type: data["type"] as? String ?? ""
+                    )
+                }
+            }
+    }
+
     func uploadProfilePhoto() {
         guard let item = selectedPhoto else { return }
 
@@ -197,7 +331,6 @@ struct UserView: View {
         }
     }
 
-    // MARK: - Load Image for Display
     func loadImage(from url: URL) {
         URLSession.shared.dataTask(with: url) { data, _, _ in
             if let data = data, let uiImage = UIImage(data: data) {
@@ -208,7 +341,48 @@ struct UserView: View {
         }.resume()
     }
 
-    // MARK: - Logout
+    @ViewBuilder
+    func ticketDestination(for booking: Booking?) -> some View {
+        if let booking = booking {
+            switch booking.type {
+            case "event":
+                TicketDetailViewE(
+                    event: EventItem(imageName: "", title: booking.title, genre: "", rating: ""),
+                    date: booking.date,
+                    time: booking.time,
+                    seats: booking.seats
+                )
+            case "movie":
+                TicketDetailViewM(
+                    movie: MovieItem(
+                        imageName: "",
+                        title: booking.title,
+                        genre: "",
+                        rating: "",
+                        duration: "N/A",
+                        description: nil,
+                        cast: nil,
+                        review: nil
+                    ),
+                    date: booking.date,
+                    time: booking.time,
+                    seats: booking.seats
+                )
+            case "sport":
+                TicketDetailViewS(
+                    sport: SportItem(imageName: "", title: booking.title, genre: "", rating: ""),
+                    date: booking.date,
+                    time: booking.time,
+                    seats: booking.seats
+                )
+            default:
+                Text("Unsupported booking type")
+            }
+        } else {
+            Text("No booking selected")
+        }
+    }
+
     func logout() {
         authViewModel.logout()
     }
