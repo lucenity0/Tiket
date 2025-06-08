@@ -1,4 +1,6 @@
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 // MARK: - Models
 
@@ -20,28 +22,28 @@ struct HomePageView: View {
     let movieItems = [
         ContentItem(imageName: "meg2", title: "Meg 2: The Trench", genre: "Action, Crime", rating: "4.5"),
         ContentItem(imageName: "nun2", title: "The Nun II", genre: "Horror", rating: "4.5"),
-        ContentItem(imageName: "jw4", title: "John Wick 4", genre: "Action, Neo-noir",rating: "4.5"),
-        ContentItem(imageName: "wicked", title: "Wicked", genre: "Action, Drama, Family",rating: "4.5"),
-        ContentItem(imageName: "fastx", title: "Fast X", genre: "Action, Neo-noir",rating: "4.5")
+        ContentItem(imageName: "jw4", title: "John Wick 4", genre: "Action, Neo-noir", rating: "4.5"),
+        ContentItem(imageName: "wicked", title: "Wicked", genre: "Action, Drama, Family", rating: "4.5"),
+        ContentItem(imageName: "fastx", title: "Fast X", genre: "Action, Neo-noir", rating: "4.5")
     ]
-    
+
     let eventItems = [
-        ContentItem(imageName: "comedyevent", title: "Saturday Night", genre: "Comedy, Family",rating: "4.5"),
-        ContentItem(imageName: "concert", title: "Concert Music", genre: "Music, Party",rating: "4.5"),
-        ContentItem(imageName: "standup", title: "Stand Up Comedy", genre: "Comedy, Family",rating: "4.5"),
-        ContentItem(imageName: "dance", title: "Dance Show", genre: "Fun, Entertaintment",rating: "4.5"),
-        ContentItem(imageName: "comedyevent", title: "Saturday Night 2", genre: "Comedy, Family",rating: "4.5")
-        
+        ContentItem(imageName: "comedyevent", title: "Saturday Night", genre: "Comedy, Family", rating: "4.5"),
+        ContentItem(imageName: "concert", title: "Concert Music", genre: "Music, Party", rating: "4.5"),
+        ContentItem(imageName: "standup", title: "Stand Up Comedy", genre: "Comedy, Family", rating: "4.5"),
+        ContentItem(imageName: "dance", title: "Dance Show", genre: "Fun, Entertainment", rating: "4.5"),
+        ContentItem(imageName: "comedyevent", title: "Saturday Night 2", genre: "Comedy, Family", rating: "4.5")
     ]
+
     let sportItems = [
-        ContentItem(imageName: "IPL", title: "IPL Finals 2025", genre: "Entertainment, Family",rating: "4.5"),
-        ContentItem(imageName: "football", title: "Soccer Game", genre: "Entertainment, Family",rating: "4.5"),
-        
-        
+        ContentItem(imageName: "IPL", title: "IPL Finals 2025", genre: "Entertainment, Family", rating: "4.5"),
+        ContentItem(imageName: "football", title: "Soccer Game", genre: "Entertainment, Family", rating: "4.5"),
     ]
 
     @State private var selectedTab: Tab = .home
     @State private var path = NavigationPath()
+    @State private var userName: String = "Loading..."
+    @State private var profileImageUrl: String? = nil
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -58,13 +60,47 @@ struct HomePageView: View {
                         // Header Section
                         VStack(spacing: screenHeight * 0.02) {
                             HStack(spacing: screenWidth * 0.04) {
-                                Image("userAvatar")
-                                    .resizable()
-                                    .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
-                                    .clipShape(Circle())
+                                Button {
+                                    path.append("userView")
+                                } label: {
+                                    if let urlString = profileImageUrl,
+                                       let url = URL(string: urlString) {
+                                        AsyncImage(url: url) { phase in
+                                            switch phase {
+                                            case .empty:
+                                                ProgressView()
+                                                    .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
+                                            case .success(let image):
+                                                image
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
+                                                    .clipShape(Circle())
+                                            case .failure(_):
+                                                Image("userAvatar")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
+                                                    .clipShape(Circle())
+                                            @unknown default:
+                                                Image("userAvatar")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
+                                                    .clipShape(Circle())
+                                            }
+                                        }
+                                    } else {
+                                        Image("userAvatar")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: screenWidth * 0.13, height: screenWidth * 0.13)
+                                            .clipShape(Circle())
+                                    }
+                                }
 
                                 VStack(alignment: .leading) {
-                                    Text("Hi, Lucent")
+                                    Text("Hi, \(userName)")
                                         .font(.system(size: screenWidth * 0.05, weight: .semibold))
                                         .foregroundColor(.black)
 
@@ -76,7 +112,6 @@ struct HomePageView: View {
                                 Spacer()
                             }
                             .padding(.horizontal, screenWidth * 0.05)
-                            
                         }
                         .padding(.top, screenHeight * 0.025)
                         .background(Color(red: 0.9, green: 0.85, blue: 0.81))
@@ -86,19 +121,18 @@ struct HomePageView: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             HStack {
                                 Image(systemName:"magnifyingglass")
-                                    .foregroundStyle(.black)
-                                    
+                                    .foregroundColor(.black)
                                 Text("Search here")
                                     .foregroundColor(.gray)
                                 Spacer()
                                 Image(systemName: "slider.horizontal.3")
-                                    .foregroundStyle(.black)
+                                    .foregroundColor(.black)
                             }
                             .padding()
                             .background(Color.white)
                             .cornerRadius(12)
                             .padding(.horizontal, screenWidth * 0.05)
-                            
+
                             VStack(spacing: screenHeight * 0.03) {
                                 SectionScroll(title: "Movies : Now Showing", items: movieItems, destination: MoviesView())
                                 SectionScroll(title: "Events : Now Showing", items: eventItems, destination: EventsView())
@@ -122,15 +156,18 @@ struct HomePageView: View {
                                 selectedTab: $selectedTab,
                                 safeAreaBottomInset: bottomInset,
                                 navigate: { tab in
-                                    switch tab {
-                                    case .home:
-                                        path.removeLast(path.count)
-                                    case .movies:
-                                        path.append("movies")
-                                    case .tickets:
-                                        path.append("tickets")
-                                    case .sports:
-                                        path.append("sports")
+                                    if tab != selectedTab {
+                                        switch tab {
+                                        case .home:
+                                            path.removeLast(path.count)
+                                        case .movies:
+                                            path.append("movies")
+                                        case .tickets:
+                                            path.append("tickets")
+                                        case .sports:
+                                            path.append("sports")
+                                        }
+                                        selectedTab = tab
                                     }
                                 }
                             )
@@ -143,15 +180,39 @@ struct HomePageView: View {
             }
             .navigationDestination(for: String.self) { value in
                 switch value {
-                case "movies":
-                    MoviesView()
-                case "tickets":
-                    EventsView()
-                case "sports":
-                    SportsView()
-                default:
-                    EmptyView()
+                    case "movies":
+                        MoviesView()
+                    case "tickets":
+                        EventsView()
+                    case "sports":
+                        SportsView()
+                    case "userView":
+                        UserView()
+                    default:
+                        EmptyView()
                 }
+            }
+            .onAppear(perform: fetchUserData)
+        }
+    }
+
+    func fetchUserData() {
+        guard let user = Auth.auth().currentUser else {
+            userName = "Guest"
+            profileImageUrl = nil
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.uid)
+
+        userRef.getDocument { snapshot, error in
+            if let data = snapshot?.data() {
+                userName = data["username"] as? String ?? "User"
+                profileImageUrl = data["profileImageUrl"] as? String
+            } else {
+                userName = "User"
+                profileImageUrl = nil
             }
         }
     }
@@ -187,7 +248,6 @@ struct TabBarItem: View {
 
     var body: some View {
         Button {
-            selectedTab = tab
             navigate(tab)
         } label: {
             VStack(spacing: 4) {
@@ -241,12 +301,12 @@ struct SectionScroll<Destination: View>: View {
                                         .frame(width: width * 0.25, height: width * 0.375)
                                         .clipped()
                                         .cornerRadius(10)
-                                    
+
                                     Text(item.title)
                                         .font(.system(size: width * 0.035, weight: .semibold))
                                         .foregroundColor(.black)
                                         .lineLimit(1)
-                                    
+
                                     Text(item.genre)
                                         .font(.system(size: width * 0.03))
                                         .foregroundColor(.black)
@@ -286,8 +346,6 @@ extension View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 }
-
-
 
 // MARK: - Preview
 

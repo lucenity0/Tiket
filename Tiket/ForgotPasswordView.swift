@@ -1,25 +1,25 @@
 import SwiftUI
+import FirebaseAuth
 
 struct ForgotPasswordView: View {
-    @State private var emailOrPhone: String = ""
+    @State private var email: String = ""
+    @State private var statusMessage: String? = nil
+    @State private var isError: Bool = false
+    @FocusState private var isEmailFieldFocused: Bool
 
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
                 VStack {
-                    VStack(spacing: 8) {
-                        Text("Forgot Password")
-                            .font(.system(size: 24, weight: .semibold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, geometry.size.height * 0.02)
+                    Text("Forgot Password")
+                        .font(.system(size: 24, weight: .semibold))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                        .padding(.top, geometry.size.height * 0.02)
 
                     Spacer().frame(height: geometry.size.height * 0.03)
 
-                    // Instruction text
-                    Text("Enter the email/phone no associated with your account and we’ll send an email/SMS with code to reset your password")
+                    Text("Enter the email associated with your account and we’ll send an email with a link to reset your password.")
                         .font(.system(size: 14, weight: .semibold))
                         .opacity(0.6)
                         .multilineTextAlignment(.leading)
@@ -29,15 +29,16 @@ struct ForgotPasswordView: View {
 
                     // Input field
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("Email / Phone Number")
+                        Text("Email")
                             .font(.system(size: 16, weight: .bold))
-                            .kerning(0.08)
                             .foregroundColor(Color(red: 0.11, green: 0.11, blue: 0.11))
 
-                        TextField("enter your email or phone", text: $emailOrPhone)
+                        TextField("enter your email", text: $email)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .foregroundColor(.black)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 13)
-                            .foregroundColor(.black)
                             .frame(height: 48)
                             .background(Color.white)
                             .cornerRadius(12)
@@ -45,11 +46,21 @@ struct ForgotPasswordView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color(red: 0.32, green: 0.14, blue: 0.14), lineWidth: 1)
                             )
+                            .focused($isEmailFieldFocused)
                     }
                     .padding(.horizontal)
                     .padding(.top, 20)
 
-                    // Divider
+                    // Error or Success Message
+                    if let message = statusMessage {
+                        Text(message)
+                            .font(.footnote)
+                            .foregroundColor(isError ? .red : .green)
+                            .multilineTextAlignment(.center)
+                            .frame(width: geometry.size.width * 0.9)
+                            .padding(.top, 4)
+                    }
+
                     Divider()
                         .frame(height: 1)
                         .frame(maxWidth: geometry.size.width * 0.8)
@@ -57,7 +68,10 @@ struct ForgotPasswordView: View {
                         .padding(.vertical, 10)
 
                     // Confirm button
-                    NavigationLink(destination: OTPView()) {
+                    Button(action: {
+                        isEmailFieldFocused = false
+                        sendResetEmail()
+                    }) {
                         Text("Confirm")
                             .font(.system(size: 16, weight: .bold))
                             .frame(maxWidth: .infinity)
@@ -84,8 +98,23 @@ struct ForgotPasswordView: View {
             }
         }
     }
-}
 
-#Preview {
-    ForgotPasswordView()
+    // MARK: - Firebase Password Reset Logic
+    private func sendResetEmail() {
+        guard !email.isEmpty else {
+            statusMessage = "Please enter your email."
+            isError = true
+            return
+        }
+
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                statusMessage = error.localizedDescription
+                isError = true
+            } else {
+                statusMessage = "A password reset link has been sent to your email."
+                isError = false
+            }
+        }
+    }
 }
