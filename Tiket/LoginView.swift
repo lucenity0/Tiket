@@ -98,6 +98,8 @@ struct LoginView: View {
                         .frame(maxWidth: geometry.size.width * 0.8)
                         .background(Color.black.opacity(0.3))
                         .padding(.vertical, 10)
+                    
+                    
 
                     // Login Button
                     Button(action: {
@@ -143,7 +145,7 @@ struct LoginView: View {
                             .foregroundColor(.black)
                         NavigationLink(destination: SignUpView()) {
                             Text("Register Now")
-                                .font(.system(size: 14))
+                                .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(Color(red: 0.32, green: 0.14, blue: 0.14))
                                 .underline()
                         }
